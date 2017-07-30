@@ -3,6 +3,7 @@ package hello;
 import java.net.URI;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -16,7 +17,12 @@ public class AccountService extends HystrixCommand<String> {
     private final String name;
 
     public AccountService(String name) {
-            super(HystrixCommandGroupKey.Factory.asKey("AccountService"), 3500);
+            super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("AccountService"))
+                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withFallbackEnabled(false))
+                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter() .withCircuitBreakerEnabled(true))
+                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(3500))
+            );
+
             this.name = name;
     }
 
@@ -33,6 +39,7 @@ public class AccountService extends HystrixCommand<String> {
         } catch(Exception e){
             e.printStackTrace();
         }
+        
         
         return "Something went wrong";
   }
