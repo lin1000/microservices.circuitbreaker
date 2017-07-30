@@ -1,5 +1,9 @@
 ![status: active](https://img.shields.io/badge/status-active-green.svg)
 
+## Command to Run
+
+mvn compile exec:java
+
 ## Rquired Use Case
 - [x] Building HystrixCommand to protect remote api calls 
 - [x] Using OKHttpClient as a convenient REST API call client 
@@ -10,7 +14,7 @@
 ## Optional Feature
 - [ ] Integration with my side project, add SocketIO support to register, track, monitor synchronous call on WebSocket for visualization 
 - [ ] Integration with my side project, add SocketIO support to register, track, monitor asynchronous call on WebSocket for visualization 
-- 
+ 
 
 ## References
 
